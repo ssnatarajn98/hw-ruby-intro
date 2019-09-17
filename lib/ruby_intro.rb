@@ -12,30 +12,16 @@ def sum(arr)
 end
 
 def max_2_sum(arr)
-  if arr.length == 1
-    return arr[0]
-  end
-  if (arr).length == 0
+  if (arr.empty?)
     return 0
   end
-  mx = 0
-  mx1 = 0
-  if arr[0]<arr[1]
-    mx1 = arr[0]
-    mx = arr[1]
-  else
-    mx1 = arr[1]
-    mx = arr[0]
+  if(arr.length == 1)
+    return arr[0]
   end
-  (2..arr.length-1).each do |i|
-    if arr[i] > mx1
-      mx1 = arr[i]
-    else if arr[i] > mx
-           mx = arr[i]
-         end
-    end
-    return mx1 +  mx
-  end
+
+
+  sum = arr.sort[-1] + arr.sort[-2]
+  return sum
 
 end
 
@@ -65,14 +51,28 @@ def starts_with_consonant? s
     return false
   end
   c = s[0].downcase
-  if c!~/[[:alpha:]]/
+  if c=='a'
     return false
+  else if c=='e'
+         return false
+         else if c=='i'
+                return false
+                else if c=='o'
+                       return false
+                       else if c=='u'
+                              return false
+                              else if c=='#'
+                                     return false
+                            else
+                              return true
+                                   end
+                              end
+                     end
+              end
+
+         end
   end
-  if(c=='a' || c=='e' || c=='i'||c=='o'||c=='u')
-    return false
-  else
-    return true
-  end
+
 end
 
 def binary_multiple_of_4? s
@@ -84,11 +84,17 @@ end
 
 class BookInStock
   def initialize(isbn, price)
+    if (isbn.empty? || price <= 0)
+      raise ArgumentError
+    end
     @isbn = isbn
     @price = price
   end
+
   def price_as_string
     "$#{sprintf("%.2f",@price)}"
   end
+  attr_accessor :isbn
+  attr_accessor :price
 
 end
